@@ -1,0 +1,57 @@
+{% extends './base_layout.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="col-sm-12 m-auto p-5">
+    <center>
+        <img src="{% static 'images/icon.png' %}" alt="img" width="40" height="40">
+
+        <h2 class="d-inline">VisitRecorder</h2>
+    </center>
+    <div class="com-sm-12 p-4">
+        <center>
+            <img src="{{img.url}}" alt="img" width="150" height="150">
+        </center>
+        <form class="m-3" action="/saveDetails/" method="POST">{% csrf_token %}
+            <input type="hidden" name="regNo" value="{{regNo}}">
+            <div class="col-sm-9 m-auto">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <span>Name: </span><span>{{name}}</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <span>Father's Name: </span><span>{{fname}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <span>Mother's Name: </span><span>{{mname}}</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <span>Course: </span><span>{{course}}</span>
+                    </div>
+                </div>
+                <!--
+                <div class="row">
+                    <div class="col-sm-6">
+                        <span>Branch: </span><span>Data</span>
+                    </div>
+                </div>
+                --> <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="goingTo" placeholder="Visiting Place">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="purpose" placeholder="Purpose of Leaving">
+                    </div>
+                </div>
+                <br>
+                <center>
+                    <button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Save</button>
+                    <a class="btn btn-success" href="/"><span class="fa fa-arrow-left"></span> Back</a>
+                </center>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

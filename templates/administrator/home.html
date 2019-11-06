@@ -1,0 +1,42 @@
+{% extends './base_layout.html' %}
+{% load staticfiles %}
+{% block content %}
+{% include './navMenu.html' %}
+                       {% csrf_token %}
+           <div>
+            <div class="col-sm-3 float-left p-5">
+                {% include './menu.html' %}
+            </div>
+            <div class="col-sm-9 float-right p-5" style="height: 600px;">
+                <center>
+                    <h3>Admin Panel</h3>
+                </center>
+                <div class="row">
+                    <div class="col-sm shadow">
+                        <center>
+                            <h6>Entrolled Students</h6>
+                        </center>
+                    </div>
+                    <div class="col-sm shadow">
+                        <center>
+                            <h6>Entrolled Students</h6>
+                        </center>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm shadow">
+                        <center>
+                            <h6>Entrolled Students</h6>
+                        </center>
+                    </div>
+                    <div class="col-sm shadow">
+                        <center>
+                            <h6>Entrolled Students</h6>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br style="clear:both;">
+{% endblock %}

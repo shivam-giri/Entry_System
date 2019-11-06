@@ -1,0 +1,65 @@
+{% extends './base_layout.html' %}
+{% load staticfiles %}
+{% block content %}
+{% include './navMenu.html' %}
+
+<div>
+    <div class="col-sm-3 float-left p-5">
+        {% include './menu.html' %}
+    </div>
+    <div class="col-sm-9 float-right p-5">
+        <div class="bg-light p-4 col-sm-8">
+           {% if error %}
+               <div class="alert alert-danger">Invalid Registration Number.</div>
+           {% endif %}
+            <center>
+                <h4>Search for Student Record</h4>
+            </center>
+            <form class="m-3" action="/administrator/searchStudent/" method="POST">
+                {% csrf_token %}
+                <div class="input-group col-sm-8 m-auto">
+                    <input type="text" class="form-control" name="regNo" placeholder="Registration Number">&nbsp;
+                    <button type="submit" class="btn btn-success d-inline"><span class="fa fa-search"></span> Search</button>
+                </div>
+            </form>
+            <hr>
+            {% if exist %}
+            <div class="row">
+                <div class="col">Name : {{fullName}}</div>
+                <div class="col">Gender : {{gender}}</div>
+            </div>
+            <div class="row">
+                <div class="col">Mother's Name : {{motherName}}</div>
+                <div class="col">Father's Name : {{fatherName}}</div>
+            </div>
+            <div class="row">
+                <div class="col">Course : {{course}}</div>
+                <div class="col">Room No. : {{roomNo}}</div>
+            </div>
+            <div class="row">
+                <div class="col">Moblie No. : {{mobile}}</div>
+                <div class="col">Parents No. : {{parentNumber}}</div>
+            </div>
+            <hr>
+            <h4>Visit Record</h4>
+            <div style="overflow-y: auto; height: 300px;">
+                <table class="table table-striped">
+                    <tr>
+                        <th>To</th>
+                        <th>Purpose</th>
+                        <th>Date and Time</th>
+                    </tr>
+                    {% for rec in visit_rec %}
+                    <tr>
+                        <td>{{rec.goingTo}}</td>
+                        <td>{{rec.purpose}}</td>
+                        <td>{{rec.visitDate}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends './base_layout.html' %}
+{% load staticfiles %}
+{% block content %}
+<script>
+    $(document).ready(function() {
+        //console.log("dfd!");
+       var msgDiv = document.getElementById('msgDiv');;
+
+setTimeout(function() {   //calls click event after a certain time
+   $('#msgDiv').hide();
+}, 2000);
+        $("#regNo").keyup(function () {
+            $(this).val($(this).val().toUpperCase());
+        });
+    });
+
+</script>
+<div class="col-sm-5 m-auto p-5">
+    <center>
+        <img src="{% static 'images/icon.png' %}" alt="img" width="80" height="80">
+        <h1 class="d-inline">VisitRecorder</h1>
+        <p style="height: 120px;"></p>
+        <form class="m-3" action="/fetchDetails/" method="POST">{% csrf_token %}
+            <div class="input-group col-sm-9">
+                <input type="text" name="regNo" class="form-control" id="regNo" placeholder="Registration Number" autofocus>&nbsp;
+                <button type="submit" class="btn btn-success d-inline"><span class="fa fa-search"></span> Search</button>
+            </div>
+        </form>
+        <div style="height: 60px;">
+            <div id="msgDiv">
+                {% if error %}
+                <div class="alert alert-danger">{{error}}</div>
+                {% endif %}
+                {% if success %}
+                <div class="alert alert-success">{{success}}</div>
+                {% endif %}
+            </div>
+        </div>
+    </center>
+    <p style="height: 120px;"></p>
+</div>
+
+{% endblock %}

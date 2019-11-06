@@ -1,0 +1,58 @@
+{% extends './base_layout.html' %}
+{% load staticfiles %}
+{% block content %}
+{% include './navMenu.html' %}
+<div>
+    <div class="col-sm-3 float-left p-5">
+        {% include './menu.html' %}
+    </div>
+    <div class="col-sm-9 float-right p-5">
+        <div class="bg-light p-4 col-sm-8">
+            <center>
+                <h4>Contact To Parent</h4>
+            </center>
+
+            <form class="m-3" action="/administrator/contactParent/" method="POST">
+                {% csrf_token %}
+                <div class="input-group col-sm-8 m-auto">
+                    <input type="text" class="form-control" name="regNo" placeholder="Registration Number">&nbsp;
+                    <button type="submit" class="btn btn-success d-inline"><span class="fa fa-search"></span> Search</button>
+                </div>
+            </form>
+            {% if success %}
+            <span class="alert alert-success">{{success}}</span>
+            {% endif %}
+            <hr>
+            {% if exist %}
+            <div class="row">
+                <div class="col">Name : {{fullName}}</div>
+                <div class="col">Course : {{course}} </div>
+            </div>
+            <div class="row">
+                <div class="col">Mother's Name : {{motherName}}</div>
+                <div class="col">Father's Name : {{fatherName}}</div>
+            </div>
+            <div class="row">
+                <div class="col">Moblie No. : {{mobile}}</div>
+
+            </div>
+            <div class="row">
+                <div class="col">Parents Email : {{parentEmail}}</div>
+            </div>
+            <br>
+            <form action="/administrator/sendMail/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="reg" value="{{regNo}}">
+                <input type="hidden" name="pEmail" value="{{parentEmail}}">
+                <input type="text" name="sub" class="form-control" placeholder="Subject" required>
+                <hr>
+                <textarea class="form-control" name="msg" id="" rows="10" width="100%" placeholder="Message" required></textarea>
+                <button type="submit" class="btn btn-success m-1 float-right">Send <span class="fa fa-share-square"></span></button>
+            </form>
+            {% endif %}
+            <br style="clear:both;">
+        </div>
+
+    </div>
+</div>
+{% endblock %}

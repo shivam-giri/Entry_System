@@ -1,0 +1,77 @@
+{% extends './base_layout.html' %}
+{% load staticfiles %}
+{% block content %}
+{% include './navMenu.html' %}
+<script>
+    $(document).ready(function(){
+        $(".text").focusout(function(){
+            var str = $(this).val();
+            str = str.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                return letter.toUpperCase();
+            });
+            $(this).val(str);
+        });
+    });
+</script>
+<div>
+    <div class="col-sm-3 float-left p-5">
+        {% include './menu.html' %}
+    </div>
+    <div class="col-sm-9 float-right p-5">
+        <div class="bg-light p-2 col-sm-7">
+            {% if success %}
+            <div class="alert alert-success">Record Saved.</div>
+            {% endif %}
+            <center>
+                <h4>Register Student</h4>
+            </center>
+            <form class="m-2" action="/administrator/regStudent/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="regNo" placeholder="Registration Number" autofocus required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control text" name="fullName" placeholder="Full Name" required>
+                </div>
+                <div class="form-group col-sm-12 form-check">
+                    <input class="" type="radio" value="Male" name="gender"> Male &nbsp;&nbsp;
+                    <input class="" type="radio" value="Female" name="gender"> Female
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control text" name="roomNo" placeholder="Room Number" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="mobile" maxlength="10" placeholder="Mobile Number" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control text" name="course" placeholder="Course" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control text" name="fatherName" placeholder="Father's Name" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control text" name="motherName" placeholder="Mothers's Name" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="parentNumber" maxlength="10" placeholder="Parent's Number" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="email" class="form-control" name="parentEmail" placeholder="Parent's Email" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="file" class="form-control" name="pic" accept="image/*" required>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-5 m-auto">
+                        <button type="submit" class="btn btn-success w-100">Register</button>
+                    </div>
+                    <div class="form-group col-sm-5 m-auto">
+                        <button type="reset" class="btn btn-danger w-100">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

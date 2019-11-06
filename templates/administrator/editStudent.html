@@ -1,0 +1,81 @@
+{% extends './base_layout.html' %}
+{% load staticfiles %}
+{% block content %}
+{% include './navMenu.html' %}
+<div>
+    <div class="col-sm-3 float-left p-5">
+        {% include './menu.html' %}
+    </div>
+    <div class="col-sm-9 float-right p-5">
+        <div class="bg-light p-2 col-sm-7">
+            {% if success %}
+            <div class="alert alert-success">Updated Successfully.</div>
+            {% endif %}
+             {% if error %}
+            <div class="alert alert-danger">{{error}}</div>
+            {% endif %}
+            <center>
+                <h4>Update Record</h4>
+            </center>
+            <form class="m-3" action="/administrator/fetchStudent/" method="POST">
+                {% csrf_token %}
+                <div class="input-group col-sm-8 m-auto">
+                    <input type="text" class="form-control" id="reg" placeholder="Registration Number" name="regNo" required>&nbsp;
+                    <button type="submit" class="btn btn-success d-inline"><span class="fa fa-search"></span> Search</button>
+                </div>
+            </form>
+            <hr>
+            {% if exist %}
+            <form class="m-2" action="/administrator/editStudent/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" value="{{reg}}" name="reg" />
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="regNo" placeholder="Registration Number" value="{{regNo}}" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="fullName" placeholder="Full Name" value="{{fullName}}" required>
+                </div>
+                <div class="form-group col-sm-12 form-check-inline">
+                    <input class="" type="radio" value="Male" name="gender" {% if male %} checked {% endif %}> Male &nbsp;&nbsp;
+                    <input class="" type="radio" value="Female" name="gender" {% if female %} checked {% endif %}> Female
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="roomNo" placeholder="Room Number" value="{{roomNo}}" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="mobile" placeholder="Mobile Number" value="{{mobile}}" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="course" placeholder="Course" value="{{course}}" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="fatherName" placeholder="Father's Name" value="{{fatherName}}" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="motherName" placeholder="Mothers's Name" value="{{motherName}}" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="parentNumber" placeholder="Parent's Number" value="{{parentNumber}}" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="text" class="form-control" name="parentEmail" placeholder="Parent's Email" value="{{parentEmail}}" required>
+                </div>
+                <div class="form-group col-sm-12">
+                    <img src="{{pic.url}}" alt="" class="img-responsive" width="150px" height="180px">
+                    <input type="file" class="form-control" name="pic" accept="image/*" required>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-5 m-auto">
+                        <button type="submit" class="btn btn-success w-100">Update</button>
+                    </div>
+                    <div class="form-group col-sm-5 m-auto">
+                        <button type="reset" class="btn btn-danger w-100">Reset</button>
+                    </div>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
